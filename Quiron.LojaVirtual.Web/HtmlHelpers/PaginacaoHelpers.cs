@@ -17,7 +17,7 @@ namespace Quiron.LojaVirtual.Web.HtmlHelpers
             StringBuilder resultado = new StringBuilder();
 
             //Para cada página da paginação, faça
-            for (int i = 1; i < paginacao.TotalPagina; i++)
+            for (int i = 1; i <= paginacao.TotalPagina; i++)
             {
                 //Construtora de TAG começa com um 'a' para os links automáticos
                 TagBuilder tag = new TagBuilder("a");
