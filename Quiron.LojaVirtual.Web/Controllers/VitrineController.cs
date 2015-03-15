@@ -1,8 +1,5 @@
 ﻿using Quiron.LojaVirtual.Dominio.Repositorio;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Quiron.LojaVirtual.Web.Models;
 
@@ -18,6 +15,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
         {
             _repositorio = new ProdutosRepositorio();
 
+            //Populando a estrutura ProdutosViewModel
             ProdutosViewModel model = new ProdutosViewModel
             {
                 Produtos = _repositorio.Produtos //Recupera todos os produtos
