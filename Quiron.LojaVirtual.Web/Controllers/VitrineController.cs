@@ -9,7 +9,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
     {
         
         private ProdutosRepositorio _repositorio;
-        public int produtosPorPagina = 8;
+        public int produtosPorPagina = 5;
 
         public ViewResult ListaProdutos(string categoria, int pagina = 1)
         {
@@ -19,7 +19,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
             ProdutosViewModel model = new ProdutosViewModel
             {
                 Produtos = _repositorio.Produtos //Recupera todos os produtos
-                .Where(p => p.Categoria == null || p.Categoria == categoria)    //Filtro por Categoria
+                .Where(p => categoria == null || p.Categoria == categoria)    //Filtro por Categoria
                     .OrderBy(p => p.Descricao) //Ordenação por Descrição
                     .Skip((pagina - 1)*produtosPorPagina) //Inibe os registros iniciais conforme pagina
                     .Take(produtosPorPagina),
@@ -28,7 +28,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
                 {
                     PaginaAtual = pagina,
                     ItensPorPagina = produtosPorPagina,
-                    ItensTotal = _repositorio.Produtos.Count()
+                    ItensTotal = categoria == null ? _repositorio.Produtos.Count() : _repositorio.Produtos.Count() / produtosPorPagina
                 }
 
                 ,
