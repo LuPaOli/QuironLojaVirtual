@@ -8,7 +8,7 @@ namespace Quiron.LojaVirtual.Dominio.Entidades
 {
     public class Carrinho
     {
-        private readonly List<ItemCarrinho> itensCarrinho = new List<ItemCarrinho>(); 
+        public readonly List<ItemCarrinho> itensCarrinho = new List<ItemCarrinho>(); 
 
         //Adicionar Item no Carrinho
         public void AdicionarItem(Produto produto, int quantidade)
