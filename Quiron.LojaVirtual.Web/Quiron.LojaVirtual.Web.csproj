@@ -129,6 +129,7 @@
     <Compile Include="Models\Paginacao.cs" />
     <Compile Include="Models\ProdutosViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\CarrinhoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -140,6 +141,7 @@
     <Content Include="Views\Vitrine\ListaProdutos.cshtml" />
     <Content Include="Views\Shared\ProdutoDetalhe.cshtml" />
     <Content Include="Views\Categoria\Menu.cshtml" />
+    <Content Include="Views\Carrinho\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Quiron.LojaVirtual.Dominio.Entidades;
 using Quiron.LojaVirtual.Dominio.Repositorio;
+using Quiron.LojaVirtual.Web.Views;
 
 namespace Quiron.LojaVirtual.Web.Controllers
 {
@@ -56,6 +57,15 @@ namespace Quiron.LojaVirtual.Web.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
 
+        }
+
+        public ViewResult Index(string returnurl)
+        {
+            return View(new CarrinhoViewModel
+            {
+                Carrinho = ObterCarrinho(),
+                ReturnUrl = returnurl
+            });
         }
     }
 }
