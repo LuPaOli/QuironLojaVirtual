@@ -33,7 +33,7 @@ namespace Quiron.LojaVirtual.Web.Controllers
             //A classe de obter carrinhos é uma sessão, onde se armazenará os itens dos carrinhos...
             Carrinho carrinho = (Carrinho) Session["Carrinho"];
 
-            if (carrinho != null)
+            if (carrinho == null)
             {
                 carrinho = new Carrinho();
                 Session["Carrinho"] = carrinho;
@@ -66,6 +66,12 @@ namespace Quiron.LojaVirtual.Web.Controllers
                 Carrinho = ObterCarrinho(),
                 ReturnUrl = returnurl
             });
+        }
+
+        public PartialViewResult Resumo()
+        {
+            Carrinho carrinho = ObterCarrinho();
+            return PartialView(carrinho);
         }
     }
 }

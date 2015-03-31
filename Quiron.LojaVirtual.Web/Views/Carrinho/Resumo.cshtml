@@ -1,0 +1,10 @@
+﻿@model Quiron.LojaVirtual.Dominio.Entidades.Carrinho
+
+<div class="navbar-right">
+    @Html.ActionLink("Checkout", "Index", "Carrinho", new {returnUrl = Request.Url.PathAndQuery}, new{@class="btn navbar-btn btn-default"})
+</div>
+
+<div class="navbar-text navbar-right">
+    <b>Seus produtos:</b>
+    @Model.itensCarrinho.Sum(p => p.Quantidade) Item(s), @Model.ValorTotal().ToString("C")
+</div>

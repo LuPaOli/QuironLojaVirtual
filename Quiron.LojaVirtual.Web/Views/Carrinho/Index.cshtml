@@ -1,7 +1,5 @@
 ﻿@model Quiron.LojaVirtual.Web.Views.CarrinhoViewModel
 
-@ViewBag.Title = "Quiron: Seu carrinho";
-
 <style>
     #carrinhoTable td {
         vertical-align: middle;
@@ -49,3 +47,9 @@
         </tr>
     </tfoot>
 </table>
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Continuar Comprando</a>
+    
+    @Html.ActionLink("Fechar o Pedido", "fecharPedido","Carrinho",new{@class = "btn btn-primary"})
+</div>
