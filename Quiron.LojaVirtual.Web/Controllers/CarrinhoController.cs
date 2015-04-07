@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using Quiron.LojaVirtual.Dominio.Entidades;
 using Quiron.LojaVirtual.Dominio.Repositorio;
@@ -77,6 +79,42 @@ namespace Quiron.LojaVirtual.Web.Controllers
         public ViewResult FecharPedido()
         {
             return View(new Pedido());
+        }
+
+        [HttpPost]
+        public ViewResult FecharPedido(Pedido pedido)
+        {
+            //Sessão que obtem todos os itens do carrinho
+            Carrinho carrinho = ObterCarrinho();
+
+            //Inicia as conigurações de email
+            EmailConfiguracoes email = new EmailConfiguracoes()
+            {
+                EscreverArquivo = bool.Parse(ConfigurationManager.AppSettings["email.EscreverArquivo"] ?? "false")
+            };
+
+            //Instancia op processsamento do pedido
+            EmailProcessarPedido emailPedido = new EmailProcessarPedido(email);
+
+            if (!carrinho.itensCarrinho.Any())
+            {
+                ModelState.AddModelError("","Não foi possível concluir seu pedido, seu carrinho está vazio!");
+            }
+            if (ModelState.IsValid)
+            {
+                emailPedido.ProcessarPedido(carrinho,pedido);
+                carrinho.LimparCarrinho();
+                return View("PedidoConcluido");
+            }
+            else
+            {
+                return View(pedido);
+            }
+        }
+
+        public ViewResult PedidoConcluido()
+        {
+            return View();
         }
     }
 }

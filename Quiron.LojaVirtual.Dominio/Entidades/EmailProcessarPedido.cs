@@ -14,7 +14,7 @@ namespace Quiron.LojaVirtual.Dominio.Entidades
 
         public EmailProcessarPedido(EmailConfiguracoes emailConfiguracoes)
         {
-            emailConfiguracoes = _emailConfiguracoes;
+            _emailConfiguracoes = emailConfiguracoes;
         }
 
         public void ProcessarPedido(Carrinho carrinho, Pedido pedido)

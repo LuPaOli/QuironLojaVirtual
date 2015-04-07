@@ -9,7 +9,7 @@ namespace Quiron.LojaVirtual.Dominio.Entidades
     {
         public bool UsarSsl = false;
 
-        public string ServidorSmtp = "";
+        public string ServidorSmtp = "smtp.quiron.com.br";
 
         public int ServidorPorta = 100;
 
