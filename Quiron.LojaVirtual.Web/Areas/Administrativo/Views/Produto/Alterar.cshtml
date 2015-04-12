@@ -5,15 +5,49 @@
     Layout = "~/Areas/Administrativo/Views/Shared/_AdministrativoLayout.cshtml";
 }
 
-<h2>Alterar - @Model.Nome</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.EditorForModel()
-}
 
-<input type="submit" id="Alterar"/>
 
-<div>
-    @Html.ActionLink("Voltar a Lista de Produtos", "Index")
+   @*Início da criação do painel de edição do produto*@
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h3>Alterar - @Model.Nome</h3>            
+        </div>
+        
+        @*Criação do corpo do formulário*@
+        
+            @using (Html.BeginForm())
+            {
+                <div class="panel-body">
+                    @*Neste campo eu inibo a exibição do ID do produto...*@
+                    @Html.HiddenFor(p=> p.ProdutoId)
+                    
+                    @*Todas as propriedades que estão sendo recuperadas do model*@
+                    @foreach (var property in ViewData.ModelMetadata.Properties)
+                    {
+                        if (property.PropertyName != "ProdutoId")
+                         {
+                             //Para trabalhar com bootstrap sempre utiliza-se o form group
+                             <div class="form-group">
+                                 <label>@(property.DisplayName ?? property.PropertyName)
+                                 </label>
+                                 @if (property.PropertyName == "Descricao")
+                                 {
+                                     @Html.TextArea(property.PropertyName, null, new {@class = "form-control"});
+                                 }
+                                 else
+                                 {
+                                     @Html.TextBox(property.PropertyName, null, new {@class = "form-control"});
+                                 }
+                             </div>
+                         }
+                    }
+                </div>
+            }
+        @*Criação do rodapé do formulário*@
+        <div class="panel-footer">
+            <input class="btn btn-primary" type="submit" id="Alterar" value="Salvar" />
+            @Html.ActionLink("Cancelar e retornar", "Index", null, new {@class="btn btn-default"})
+        </div>
 </div>
