@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Quiron.LojaVirtual.Dominio.Entidades;
 using Quiron.LojaVirtual.Dominio.Repositorio;
 
 namespace Quiron.LojaVirtual.Web.Areas.Administrativo.Controllers
@@ -17,5 +18,13 @@ namespace Quiron.LojaVirtual.Web.Areas.Administrativo.Controllers
             var produtos = _repositorio.Produtos;
             return View(produtos);
         }
-	}
+
+
+        public ViewResult Alterar(int produtoid)
+        {
+            _repositorio = new ProdutosRepositorio();
+            Produto produto = _repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoid);
+            return View(produto);
+        }
+    }
 }

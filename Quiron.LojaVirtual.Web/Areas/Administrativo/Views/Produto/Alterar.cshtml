@@ -1,0 +1,19 @@
+﻿@model Quiron.LojaVirtual.Dominio.Entidades.Produto
+
+@{
+    ViewBag.Title = "Alterar Produto";
+    Layout = "~/Areas/Administrativo/Views/Shared/_AdministrativoLayout.cshtml";
+}
+
+<h2>Alterar - @Model.Nome</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+}
+
+<input type="submit" id="Alterar"/>
+
+<div>
+    @Html.ActionLink("Voltar a Lista de Produtos", "Index")
+</div>
