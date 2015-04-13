@@ -4,10 +4,6 @@
     ViewBag.Title = "Alterar Produto";
     Layout = "~/Areas/Administrativo/Views/Shared/_AdministrativoLayout.cshtml";
 }
-
-
-
-
    @*Início da criação do painel de edição do produto*@
 
     <div class="panel">
@@ -27,27 +23,30 @@
                     @foreach (var property in ViewData.ModelMetadata.Properties)
                     {
                         if (property.PropertyName != "ProdutoId")
-                         {
-                             //Para trabalhar com bootstrap sempre utiliza-se o form group
-                             <div class="form-group">
-                                 <label>@(property.DisplayName ?? property.PropertyName)
-                                 </label>
-                                 @if (property.PropertyName == "Descricao")
-                                 {
-                                     @Html.TextArea(property.PropertyName, null, new {@class = "form-control"});
-                                 }
-                                 else
-                                 {
-                                     @Html.TextBox(property.PropertyName, null, new {@class = "form-control"});
-                                 }
-                             </div>
-                         }
+                        {
+                            //Para trabalhar com bootstrap sempre utiliza-se o form group
+                            <div class="form-group">
+                                <label>@(property.DisplayName ?? property.PropertyName)
+                                </label>
+                                @if (property.PropertyName == "Descricao")
+                                {
+                                    @Html.TextArea(property.PropertyName, null, new {@class = "form-control", rows = 4});
+                                }
+                                else
+                                {
+                                    @Html.TextBox(property.PropertyName, null, new {@class = "form-control"});
+                                }
+                            </div>
+                        }
+                        @Html.ValidationMessage(property.PropertyName);
                     }
                 </div>
+                
+                 @*Criação do rodapé do formulário*@
+                 <div class="panel-footer">
+                    <input class="btn btn-primary" type="submit" value="Salvar" />
+                    @Html.ActionLink("Cancelar e retornar", "Index", null, new {@class="btn btn-default"})
+                </div>
             }
-        @*Criação do rodapé do formulário*@
-        <div class="panel-footer">
-            <input class="btn btn-primary" type="submit" id="Alterar" value="Salvar" />
-            @Html.ActionLink("Cancelar e retornar", "Index", null, new {@class="btn btn-default"})
-        </div>
+       
 </div>
