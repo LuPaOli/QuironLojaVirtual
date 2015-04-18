@@ -1,0 +1,67 @@
+﻿<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel">Exclusão</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden"/>
+                <p>Deseja excluir o produto <em><strong>"<span></span>"</strong></em>&nbsp;?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Confirmar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    
+    //Abrir o Modal
+    $(function () {
+        //Cria-se a função para a classe do botão
+        $(".btn-xs").click(function (e) {
+            //Recupera o ID e o NAME da classe referenciada na função/clique
+            var id = this.id;
+            var nome = this.name;
+            //Setando as variáveis em cima dentro do DIV do Body do MODAL...
+            $("#deleteModal .modal-body input[type=hidden]").val(id);
+            $("#deleteModal .modal-body span").text(nome);
+            //Exibindo o modal...
+            $("#deleteModal").modal('show');
+        });
+        $("#deleteModal .modal-footer button").click(function (e) {
+
+            e.preventDefault();
+            //Chamando minha função de exclusão...
+            var url = "/Administrativo/Produto/Excluir/";
+            var id = $(".modal-body input[type=hidden]").val();
+
+            var rowNo = "#row-" + id;
+
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                DataType: 'json',
+                data: { produtoId: id },
+                success: function() {
+                    $('#deleteModal').modal('hide');
+                    $(rowNo).animate({ opacity: 0.0 }, 400, function() {
+                        $(rowNo).remove();
+                    });
+                },
+                complete:function(data) {
+                    $('#divExcluir').empty();
+                    $('#divExcluir').addClass("alert alert-success");
+                    $('#divExcluir').html(data.responseText);
+                }
+
+            });
+        });
+
+    });
+
+</script>

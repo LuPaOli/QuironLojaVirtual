@@ -10,6 +10,8 @@
 
 <div class="alert alert-success" id="Mensagem"></div>
 
+<div id="divExcluir"></div>
+
 <div class="panel panel-default">
     @*Cabeçalho do painel administrativo*@
     <div class="panel-heading">
@@ -39,12 +41,16 @@
                         <td class="text-right"># @item.ProdutoId</td>
                         <td>@Html.ActionLink(item.Nome, "Alterar", new {item.ProdutoId })</td>
                         <td class="text-right">@item.Preco.ToString("C")</td>
-                        <td class="text-center">@using (Html.BeginForm("Excluir", "Produto"))
-                            {
-                                //Esconder o Id do Produto com 'Hidden'
-                                @Html.Hidden("ProdutoId", item.ProdutoId)
-                                <input type="submit" class="btn btn-default btn-xs" value="Excluir" />
-                            }</td>
+                        <td class="text-center">
+                            @*@using (Html.BeginForm("Excluir", "Produto"))
+                                  {
+                                      //Esconder o Id do Produto com 'Hidden'
+                                      @Html.Hidden("ProdutoId", item.ProdutoId)
+                                      <input type="submit" class="btn btn-default btn-xs" value="Excluir" />
+                                  }*@
+                            
+                            <input type="submit" class="btn btn-default btn-xs" id="@item.ProdutoId" name="@item.Nome" value="Excluir" />
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -55,3 +61,5 @@
     
     </div>
 </div>
+
+@Html.Partial("Confirmacao")
