@@ -110,9 +110,14 @@
     <Content Include="Areas\Administrativo\Views\Produto\Index.cshtml" />
     <Content Include="Areas\Administrativo\Views\Produto\Alterar.cshtml" />
     <Content Include="Areas\Administrativo\Views\Produto\Confirmacao.cshtml" />
+    <Content Include="Content\jasny-bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\jasny-bootstrap.css" />
+    <Content Include="Content\jasny-bootstrap.min.css" />
+    <Content Include="Scripts\jasny-bootstrap.js" />
+    <Content Include="Scripts\jasny-bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

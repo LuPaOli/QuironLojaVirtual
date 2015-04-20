@@ -4,49 +4,92 @@
     ViewBag.Title = "Alterar Produto";
     Layout = "~/Areas/Administrativo/Views/Shared/_AdministrativoLayout.cshtml";
 }
-   @*Início da criação do painel de edição do produto*@
+@*Início da criação do painel de edição do produto*@
 
-    <div class="panel">
-        <div class="panel-heading">
-            <h3>@Model.Nome</h3>            
-        </div>
-        
-        @*Criação do corpo do formulário*@
-        
-            @using (Html.BeginForm("Alterar","Produto"))
+<div class="panel">
+    <div class="panel-heading">
+        <h3>@Model.Nome</h3>
+    </div>
+
+    @*Criação do corpo do formulário*@
+
+    @*@using (Html.BeginForm("Alterar","Produto"))*@
+    @using (Html.BeginForm("Alterar", "Produto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="panel-body">
+            @*Neste campo eu inibo a exibição do ID do produto...*@
+            @Html.HiddenFor(p => p.ProdutoId)
+
+            @*Todas as propriedades que estão sendo recuperadas do model*@
+            @foreach (var property in ViewData.ModelMetadata.Properties)
             {
-                <div class="panel-body">
-                    @*Neste campo eu inibo a exibição do ID do produto...*@
-                    @Html.HiddenFor(p=> p.ProdutoId)
-                    
-                    @*Todas as propriedades que estão sendo recuperadas do model*@
-                    @foreach (var property in ViewData.ModelMetadata.Properties)
-                    {
-                        if (property.PropertyName != "ProdutoId")
+
+                switch (property.PropertyName)
+                {
+                    case "ProdutoId":
+                    case "Imagem":
+                    case "ImagemMimeType":
+                        break;
+                    default:
+
+                        //Para trabalhar com bootstrap sempre utiliza-se o form group
+                        <div class="form-group">
+                            <label>
+                                @(property.DisplayName ?? property.PropertyName)
+                        </label>
+                        @if (property.PropertyName == "Descricao")
                         {
-                            //Para trabalhar com bootstrap sempre utiliza-se o form group
-                            <div class="form-group">
-                                <label>@(property.DisplayName ?? property.PropertyName)
-                                </label>
-                                @if (property.PropertyName == "Descricao")
-                                {
-                                    @Html.TextArea(property.PropertyName, null, new {@class = "form-control", rows = 4});
-                                }
-                                else
-                                {
-                                    @Html.TextBox(property.PropertyName, null, new {@class = "form-control"});
-                                }
-                            </div>
+                            @Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 4 })
                         }
-                        @Html.ValidationMessage(property.PropertyName);
-                    }
-                </div>
-                
-                 @*Criação do rodapé do formulário*@
-                 <div class="panel-footer">
-                    <input class="btn btn-primary" type="submit" value="Salvar" />
-                    @Html.ActionLink("Cancelar e retornar", "Index", null, new {@class="btn btn-default"})
-                </div>
+                        else
+                        {
+                            @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessage(property.PropertyName)
+                    </div>
+
+                        break;
+                }
             }
-       
+
+
+            Upload
+
+            <div class="form-group">
+                @*<div style="position:relative;">
+                        <label>Imagem</label>
+                        <a class='btn' href='javascript:;'>
+                            Selecione a imagem...
+                            <input type="file" name="image"  size="40" style="position:absolute;z-index:2;top:0; left:0;filter: alpha(opacity=0); opacity:0; background-color:transparent;color:transparent;" onchange='$("#upload-file-info").html($(this).val());'>
+                        </a>
+                        <span class='label label-info' id="upload-file-info"></span>
+                    </div>
+                    @if (Model.Imagem == null)
+                    {
+
+                        <div class="form-control-static">Nenhuma imagem</div>
+                    }
+                    else
+                    {
+                        <img class="img-thumbnail" width="120" height="120" src="@Url.Action("ObterImagem", "Produto", new { Model.ProdutoId })" />
+                    }*@
+
+
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                    <div>
+                        <span class="btn btn-default btn-file"><span class="fileinput-new">Selecionar imagem</span><span class="fileinput-exists">Alterar</span><input type="file" name="image" onchange='$("#upload-file-info").html($(this).val());'></span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Criação do rodapé do formulário*@
+        <div class="panel-footer">
+            <input class="btn btn-primary" type="submit" value="Salvar" />
+            @Html.ActionLink("Cancelar e retornar", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
+
 </div>

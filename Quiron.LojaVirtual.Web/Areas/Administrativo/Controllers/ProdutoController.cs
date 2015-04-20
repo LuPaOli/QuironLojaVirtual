@@ -30,7 +30,7 @@ namespace Quiron.LojaVirtual.Web.Areas.Administrativo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Alterar(Produto produto)
+        public ActionResult Alterar(Produto produto, HttpPostedFileBase image = null)
         {
             //Verifica se todas as validações realizadas no modelo de dados são válidas para salvar o produto
             if (ModelState.IsValid)
