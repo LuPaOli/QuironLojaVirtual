@@ -12,11 +12,15 @@ namespace Quiron.LojaVirtual.Dominio.Repositorio
     public class EfDbContext: DbContext
     {
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Administrador> Administradores { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //Fazendo o mapeamento do nome das tabelas para as classes criadas no banco de dados
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Entity<Produto>().ToTable("Produtos");
+            modelBuilder.Entity<Administrador>().ToTable("Administradores");
+
         }
     }
 }
