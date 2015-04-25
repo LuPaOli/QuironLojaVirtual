@@ -1,6 +1,12 @@
 ﻿@model Quiron.LojaVirtual.Dominio.Entidades.Produto
 
 <div class="panel panel-primary">
+    @if (Model.Imagem != null)
+    {
+        <div class="pull-left" style="margin-right: 10px">
+            <img class="img-thumbnail" width="120" height="120" src="@Url.Action("ObterImagem", "Vitrine", new { Model.ProdutoId })" />
+        </div>
+    }
     <div class="panel-heading">@Model.Nome</div>
     <div class="panel-body">
         <h3><span class="pull-right label label-primary">@Model.Preco.ToString("c")</span></h3>

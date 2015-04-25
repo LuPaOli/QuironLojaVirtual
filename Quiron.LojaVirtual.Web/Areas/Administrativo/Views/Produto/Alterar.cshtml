@@ -53,35 +53,44 @@
             }
 
 
-            Upload
+            @*Upload*@
 
             <div class="form-group">
                 @*<div style="position:relative;">
-                        <label>Imagem</label>
-                        <a class='btn' href='javascript:;'>
-                            Selecione a imagem...
-                            <input type="file" name="image"  size="40" style="position:absolute;z-index:2;top:0; left:0;filter: alpha(opacity=0); opacity:0; background-color:transparent;color:transparent;" onchange='$("#upload-file-info").html($(this).val());'>
-                        </a>
-                        <span class='label label-info' id="upload-file-info"></span>
-                    </div>
-                    @if (Model.Imagem == null)
-                    {
+                    <label>Imagem</label>
+                    <a class='btn' href='javascript:;'>
+                        Selecione a imagem...
+                        <input type="file" name="image"  size="40" style="position:absolute;z-index:2;top:0; left:0;filter: alpha(opacity=0); opacity:0; background-color:transparent;color:transparent;" onchange='$("#upload-file-info").html($(this).val());'>
+                    </a>
+                    <span class='label label-info' id="upload-file-info"></span>
+                </div>
+                @if (Model.Imagem == null)
+                {
+                    <div class="form-control-static">Nenhuma imagem</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="120" height="120" src="@Url.Action("ObterImagem", "Produto", new { Model.ProdutoId })" />
+                }*@
 
-                        <div class="form-control-static">Nenhuma imagem</div>
-                    }
-                    else
-                    {
-                        <img class="img-thumbnail" width="120" height="120" src="@Url.Action("ObterImagem", "Produto", new { Model.ProdutoId })" />
-                    }*@
-
-
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                <div><label>Imagem</label></div>
+               <div class="fileinput fileinput-new" data-provides="fileinput">
+                   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                       @if (Model.Imagem != null)
+                        {
+                            <img src="@Url.Action("ObterImagem", "Produto", new { Model.ProdutoId })" />
+                        }
+                   </div>
                     <div>
-                        <span class="btn btn-default btn-file"><span class="fileinput-new">Selecionar imagem</span><span class="fileinput-exists">Alterar</span><input type="file" name="image" onchange='$("#upload-file-info").html($(this).val());'></span>
+                        <span class="btn btn-default btn-file">
+                            <span class="fileinput-new">Selecionar imagem</span>
+                            <span class="fileinput-exists">Alterar</span>
+                            <input type="file" name="image"  onchange='$("#upload-file-info").html($(this).val());'>
+                        </span>
                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                     </div>
                 </div>
+                              
             </div>
         </div>
 

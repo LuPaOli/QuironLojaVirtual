@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 using Quiron.LojaVirtual.Dominio.Entidades;
 using Quiron.LojaVirtual.Dominio.Repositorio;
@@ -49,7 +50,10 @@ namespace Quiron.LojaVirtual.Web.Controllers
                             && returnUrl.StartsWith("/")
                             && !returnUrl.StartsWith("//")
                             && !returnUrl.StartsWith("/\\"))
+                        {
                             return Redirect(returnUrl);
+                        }
+                        return RedirectToAction("Index", "Produto", new {area = "Administrativo"});
                     }
                 }
                 else

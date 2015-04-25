@@ -35,6 +35,13 @@ namespace Quiron.LojaVirtual.Web.Areas.Administrativo.Controllers
             //Verifica se todas as validações realizadas no modelo de dados são válidas para salvar o produto
             if (ModelState.IsValid)
             {
+                //Verifica se a imagem é nula...
+                if(image != null)
+                {
+                    produto.ImagemMimeType = image.ContentType;
+                    produto.Imagem = new byte[image.ContentLength];
+                    image.InputStream.Read(produto.Imagem, 0, image.ContentLength);
+                }
                 _repositorio = new ProdutosRepositorio();
                 _repositorio.Salvar(produto);
                 TempData["Mensagem"] = string.Format("{0} foi salvo com sucesso!", produto.Nome);
@@ -75,6 +82,19 @@ namespace Quiron.LojaVirtual.Web.Areas.Administrativo.Controllers
             }
 
             return Json(mensagem, JsonRequestBehavior.AllowGet);
+        }
+
+        public FileContentResult ObterImagem(int produtoId)
+        {
+            _repositorio = new ProdutosRepositorio();
+            Produto prod = _repositorio.Produtos.FirstOrDefault(p => p.ProdutoId == produtoId);
+
+            if (prod != null)
+            {
+                return File(prod.Imagem, prod.ImagemMimeType);
+            }
+            return null;
+
         }
     }
 }
